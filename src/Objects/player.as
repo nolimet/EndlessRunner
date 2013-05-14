@@ -56,13 +56,13 @@ package Objects
 			}
 			if (powerup == 0) 
 			{
-			//Spacebarpress
+				//Spacebarpress
 				if(Spacebar && this.y > 20)
 				{
 				speedup.$Y = 0 - 0.5;
 				}
-			//Spacebar release
-				if(this.y < 600  && Spacebar == 0 && g == false )
+				//Spacebar release
+				if(this.y < 600  && Spacebar == false && g == false )
 				{
 					speedup.$Y = 0.5;
 				}	
@@ -84,23 +84,27 @@ package Objects
 					trace("gravitflip")
 					pulseSpacebar = false;			
 				}
-				if (Spacebar == true) 
+				if (Spacebar) 
 				{
 					pulseSpacebar = true;
 					g = true;
 				}
 			}
-			
+			//stop movement
+			if (this.y > 601 && g == false)
+			{
+				speedup.$Y = 0
+				this.y = 600
+				speed.$Y = 0
+				g = true;
+			}	
 			//Movement
 			speed.$X += speedup.$X;
 			speed.$Y += speedup.$Y;
 			
-			pos.$X += speed.$X;
-			pos.$Y += speed.$Y;
+			this.x += speed.$X;
+			this.y += speed.$Y;
 			
-			this.x = pos.$X;
-			this.y = pos.$Y;
-			trace(pos.$Y)
 		}
 	}
 
