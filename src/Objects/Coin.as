@@ -1,5 +1,6 @@
 package Objects 
 {
+	import code.Sphere;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -11,21 +12,20 @@ package Objects
 	{
 		public var speed:Number = 5;
 		public var deleted:Boolean = false;
-		//public var Coinart:coinart = new coinart()
-		public var Coinart:Sprite;
+		//private var Coinart:coinart = new coinart()
+		private var Coinart:Sphere;
 		
 		public function Coin($x:Number, $y:Number)
 		{
 			this.x = $x;
 			this.y = $y;
 			
+			Coinart = new Sphere(this.x, this.y, 5, 0x00ffff);
+			
 			addEventListener(Event.ENTER_FRAME, step);
-			
-			this.graphics.lineStyle(1);
-			this.graphics.beginFill(0xffff00);
-			this.graphics.drawCircle(this.x, this.y, 30);
-			
 			addChild(Coinart);
+			
+			trace("coin placed")
 		}
 		
 		private function step(e:Event):void

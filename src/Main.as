@@ -17,8 +17,9 @@ package
 	
 	public class Main extends Sprite 
 	{
-		
+		//timers
 		private var tick:Timer
+		private var textupdate:Timer
 		//public static var _stage:Stage = Stage;
 		
 		//counters
@@ -34,10 +35,18 @@ package
 		public function Main():void 
 		{
 			addChild(Player)
+			//just the ticker
+			tick = new Timer(1000);
+			tick.start();
+			//textupdate timer
+			textupdate = new Timer(100);
+			textupdate.start();
+			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			addEventListener(TimerEvent.TIMER, ticker);
+			tick.addEventListener(TimerEvent.TIMER, ticker);
+			textupdate.addEventListener(TimerEvent.TIMER, Textupdate);
 			addEventListener(Event.ENTER_FRAME, loop);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,KeyPressed);
 			stage.addEventListener(KeyboardEvent.KEY_UP, KeyRelease);
@@ -48,8 +57,7 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			tick = new Timer(1000);
-			tick.start();
+			
 		}
 		
 		private function gameplaystart():void
@@ -71,13 +79,22 @@ package
 			}
 			if (coinRowLength <= 0)
 			{
-				coinRowLength = Math.floor(Math.random() * 16);
+				coinRowLength = Math.floor(Math.random() * 16 + 5);
 				coinHeight = Math.random() * 580 + 20;
 			}
 		}
-		private function loop(e:Event):void
+		
+		private function Textupdate(e:TimerEvent):void
 		{
 			
+			
+		}
+		private function loop(e:Event):void
+		{
+			//for each (var coin in coins)
+			//{
+				//if 
+			//}
 		}
 		
 		private function KeyPressed(e:KeyboardEvent):void

@@ -26,6 +26,7 @@ package Objects
 		//others
 		private var pulseSpacebar:Boolean = false;
 		public var powerup:int = 0;
+		public var direction:int = 1;
 		
 		public function player($y:Number,$x:Number) 
 		{
@@ -66,6 +67,14 @@ package Objects
 				{
 					speedup.$Y = 0.5;
 				}	
+				//stop movement
+				if (this.y > 601 && g == false)
+				{
+					speedup.$Y = 0
+					this.y = 600
+					speed.$Y = 0
+					g = true;
+				}
 			}
 			//powerup gravity flip(voor een of andere rede val je door de grond
 			if (powerup == 1)
@@ -73,14 +82,7 @@ package Objects
 				//Spacebarpulseed
 				if (Spacebar == false && pulseSpacebar) 
 				{
-					if (this.y <= 600)
-					{
-						speedup.$Y = -1;
-					}
-					if (this.y >= 20)
-					{
-						speedup.$Y = 1;
-					}
+					direction = direction * -1;
 					trace("gravitflip")
 					pulseSpacebar = false;			
 				}
@@ -89,15 +91,22 @@ package Objects
 					pulseSpacebar = true;
 					g = true;
 				}
+				//if (direction < 0)
+				//{
+					//if ()
+					//{
+						//
+					//}
+				//}
+				//if (direction > 0)
+				//{
+					//if ()
+					//{
+						//
+					//}
+				//}
 			}
-			//stop movement
-			if (this.y > 601 && g == false)
-			{
-				speedup.$Y = 0
-				this.y = 600
-				speed.$Y = 0
-				g = true;
-			}	
+				
 			//Movement
 			speed.$X += speedup.$X;
 			speed.$Y += speedup.$Y;
