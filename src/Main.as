@@ -28,16 +28,15 @@ package
 		//private var coinRandomInter:Number = 1;
 		
 		//screenobjects
-		private var Player:player = new player(60, 60)
+		private var Player:player;
 		private var coins:Array = [];
 		
 		
 		public function Main():void 
 		{
-			addChild(Player)
 			//just the ticker
 			tick = new Timer(1000);
-			tick.start();
+			//tick.start();
 			//textupdate timer
 			textupdate = new Timer(100);
 			textupdate.start();
@@ -60,10 +59,11 @@ package
 			
 		}
 		
-		private function gameplaystart():void
+		private function level(Level:int):void
 		{
+			
 			tick.start();
-			Player = new player(600,60);
+			Player = new player(600,100);
 			addChild(Player);
 		}
 		
@@ -99,13 +99,18 @@ package
 		
 		private function KeyPressed(e:KeyboardEvent):void
 		{
-			trace(e.keyCode)
-			if (e.keyCode==32){Player.Spacebar=true}
+			if (level == 1)
+			{
+				if (e.keyCode == 32) { Player.Spacebar = true }
+			}
 		}
 		
 		private function KeyRelease(e:KeyboardEvent):void
 		{
-			if (e.keyCode==32){Player.Spacebar=false}
+			if (level == 1)
+			{
+				if (e.keyCode == 32) { Player.Spacebar = false }
+			}
 		}
 		
 		private function MouseClick(e:MouseEvent):void

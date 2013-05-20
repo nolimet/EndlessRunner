@@ -19,6 +19,7 @@ package Objects
 		public var speedup:$Vector = new $Vector(0,-1);
 		public var g:Boolean;
 		public var pos:$Vector = new $Vector()
+		public var floorHeight:Number = 600
 		
 		//controles
 		public var Spacebar:Boolean = false;
@@ -39,7 +40,7 @@ package Objects
 			//places the player
 			//addchild(Player);
 			//placeholder
-			Player = new Squar(this.x, this.y, 40, 20, 0xff0000, 0, false); 
+			Player = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
 			addChild(Player);
 			
 			//creats player controles and event check
@@ -60,18 +61,19 @@ package Objects
 				//Spacebarpress
 				if(Spacebar && this.y > 20)
 				{
-				speedup.$Y = 0 - 0.5;
+				speedup.$Y = 0 - 1;
 				}
 				//Spacebar release
-				if(this.y < 600  && Spacebar == false && g == false )
+				if(this.y < floorHeight  && Spacebar == false )
 				{
-					speedup.$Y = 0.5;
+					speedup.$Y = 1;
+					g = false;
 				}	
 				//stop movement
-				if (this.y > 601 && g == false)
+				if (this.y > floorHeight+1 && g == false)
 				{
 					speedup.$Y = 0
-					this.y = 600
+					this.y = floorHeight
 					speed.$Y = 0
 					g = true;
 				}
