@@ -25,6 +25,7 @@ package
 		//counters
 		private var coinRowLength:int = 0;
 		private var coinHeight:int = 0;
+		private var currentlevel:int = 0;
 		//private var coinRandomInter:Number = 1;
 		
 		//screenobjects
@@ -40,6 +41,7 @@ package
 			//textupdate timer
 			textupdate = new Timer(100);
 			textupdate.start();
+			level(1);
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -61,10 +63,40 @@ package
 		
 		private function level(Level:int):void
 		{
+			if (currentlevel == 0)
+			{
+				//clear start screen
+			}
 			
-			tick.start();
-			Player = new player(600,100);
-			addChild(Player);
+			if (currentlevel == 1)
+			{
+				//remove player
+				//remove coins
+				//remove floor
+				//remove background
+				//remove sealing
+			}
+			
+			if (currentlevel == 2)
+			{
+				//remove gameoverscreen
+			}
+			if (Level == 0)
+			{
+				//create startscreen
+			}
+			
+			if (Level == 1)
+			{
+				tick.start();
+				Player = new player(600,100);
+				addChild(Player);
+			}
+			
+			if (Level == 2)
+			{
+				//create gameoverscreen
+			}
 		}
 		
 		private function ticker(e:TimerEvent):void
@@ -99,7 +131,7 @@ package
 		
 		private function KeyPressed(e:KeyboardEvent):void
 		{
-			if (level == 1)
+			if (currentlevel == 1)
 			{
 				if (e.keyCode == 32) { Player.Spacebar = true }
 			}
@@ -107,7 +139,7 @@ package
 		
 		private function KeyRelease(e:KeyboardEvent):void
 		{
-			if (level == 1)
+			if (currentlevel == 1)
 			{
 				if (e.keyCode == 32) { Player.Spacebar = false }
 			}
