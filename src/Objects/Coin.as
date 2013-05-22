@@ -20,7 +20,7 @@ package Objects
 			this.x = $x;
 			this.y = $y;
 			
-			Coinart = new Sphere(this.x, this.y, 5, 0x00ffff);
+			Coinart = new Sphere(0, 0, 5, 0x00ffff);
 			
 			addEventListener(Event.ENTER_FRAME, step);
 			addChild(Coinart);

@@ -105,9 +105,10 @@ package
 			trace("ticktack")
 			if (coinRowLength > 0)
 			{
-				var coin:Coin = new Coin(1340,coinHeight)
-				coins.push(coin)
-				coinRowLength--
+				var coin:Coin = new Coin(1290, coinHeight);
+				coins.push(coin);
+				addChild(coin);
+				coinRowLength--;
 			}
 			if (coinRowLength <= 0)
 			{
@@ -123,10 +124,14 @@ package
 		}
 		private function loop(e:Event):void
 		{
-			//for each (var coin in coins)
-			//{
-				//if 
-			//}
+			for (var i:int = coins.length - 1 ; i > 0; i--)
+			{
+			if(coins[i].x < -40)
+				{
+				removeChild(coins[i]);
+				coins.splice(i, 1);
+				}
+			}
 		}
 		
 		private function KeyPressed(e:KeyboardEvent):void
