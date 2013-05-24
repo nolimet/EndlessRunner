@@ -24,17 +24,15 @@ package Objects
 			
 			addEventListener(Event.ENTER_FRAME, step);
 			addChild(Coinart);
-			
-			trace("coin placed")
 		}
 		
 		private function step(e:Event):void
 		{
-			this.x += speed
-			if (this.x < -40)
-			{
-				deleted = true;
-			}
+			this.x -= speed
+			//if (this.x < -40)
+			//{
+				//deleted = true;
+			//}
 		}
 	}
 

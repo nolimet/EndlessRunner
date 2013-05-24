@@ -24,7 +24,7 @@ package  code
 		
 		this.graphics.lineStyle(5);
 		this.graphics.beginFill(this.kleur);
-		this.graphics.drawCircle(0, 0, this.straal);
+		this.graphics.drawCircle(this.x, this.y, this.straal);
 		}
 
 	}

@@ -27,6 +27,8 @@ package
 		private var coinHeight:int = 0;
 		private var currentlevel:int = 0;
 		//private var coinRandomInter:Number = 1;
+		public var score:int = 0
+		
 		
 		//screenobjects
 		private var Player:player;
@@ -36,7 +38,7 @@ package
 		public function Main():void 
 		{
 			//just the ticker
-			tick = new Timer(1000);
+			tick = new Timer(250);
 			//tick.start();
 			//textupdate timer
 			textupdate = new Timer(100);
@@ -84,25 +86,27 @@ package
 			if (Level == 0)
 			{
 				//create startscreen
+				currentlevel=0
 			}
 			
 			if (Level == 1)
 			{
+				//The Game it self 
 				tick.start();
 				Player = new player(600,100);
 				addChild(Player);
+				currentlevel=1
 			}
 			
 			if (Level == 2)
 			{
 				//create gameoverscreen
+				currentlevel=2
 			}
 		}
 		
 		private function ticker(e:TimerEvent):void
 		{
-			trace(coinRowLength)
-			trace("ticktack")
 			if (coinRowLength > 0)
 			{
 				var coin:Coin = new Coin(1290, coinHeight);
@@ -128,8 +132,14 @@ package
 			{
 			if(coins[i].x < -40)
 				{
-				removeChild(coins[i]);
-				coins.splice(i, 1);
+					removeChild(coins[i]);
+					coins.splice(1, i);
+				}
+				if (coins[i].hitTestObject(Player))
+				{
+					score += 1
+					removeChild(coins[i]);
+					coins.splice(1, i);
 				}
 			}
 		}

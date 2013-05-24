@@ -27,7 +27,7 @@ package Objects
 		//others
 		private var pulseSpacebar:Boolean = false;
 		public var powerup:int = 0;
-		public var direction:int = 1;
+		public var direction:int = -1;
 		
 		public function player($y:Number,$x:Number) 
 		{
@@ -41,6 +41,7 @@ package Objects
 			//addchild(Player);
 			//placeholder
 			Player = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
+			Player.x = 100;
 			addChild(Player);
 			
 			//creats player controles and event check
@@ -86,6 +87,7 @@ package Objects
 				{
 					direction = direction * -1;
 					trace("gravitflip")
+					
 					pulseSpacebar = false;			
 				}
 				if (Spacebar) 
@@ -93,20 +95,49 @@ package Objects
 					pulseSpacebar = true;
 					g = true;
 				}
-				//if (direction < 0)
-				//{
-					//if ()
-					//{
-						//
-					//}
-				//}
-				//if (direction > 0)
-				//{
-					//if ()
-					//{
-						//
-					//}
-				//}
+				if (direction < 0)
+				{
+					if (this.y > 19&& g)
+					{
+						speedup.$Y = -1;
+					}
+					
+					if (this.y < 19)
+					{
+						g = false;
+						this.y = 20;
+						speedup.$Y = 0;
+						speed.$Y=0
+					}
+					if (this.y > floorHeight+1)
+					{
+						//g = false;
+						this.y = floorHeight;
+						//speedup.$Y = 0;
+						speed.$Y=0
+					}
+				}
+				if (direction > 0)
+				{
+					if (this.y > 19)
+					{
+						this.y = 20
+						speedup.$Y = 0
+						speed.$Y=0
+					}
+					if (this.y < floorHeight+1&& g)
+					{
+						speedup.$Y = 1;
+					}
+					
+					if (this.y > 19)
+					{
+						//g = false;
+						this.y = 20;
+						//speedup.$Y = 0;
+						speed.$Y=0
+					}
+				}
 			}
 				
 			//Movement
