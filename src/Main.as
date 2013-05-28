@@ -6,6 +6,7 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.text.TextField;
 	import flash.utils.Timer;
 	import Objects.Coin;
 	import Objects.player;
@@ -33,6 +34,7 @@ package
 		//screenobjects
 		private var Player:player;
 		private var coins:Array = [];
+		private var scoretext:TextField = new TextField;
 		
 		
 		public function Main():void 
@@ -44,6 +46,10 @@ package
 			textupdate = new Timer(100);
 			textupdate.start();
 			level(1);
+			
+			//text stuff
+			//scoretext.
+			addChild(scoretext);
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -123,7 +129,16 @@ package
 		
 		private function Textupdate(e:TimerEvent):void
 		{
-			
+			if (currentlevel == 1)
+			{
+				scoretext.text = "Score: " + score;
+				scoretext.x = 10;
+				scoretext.y = 20;
+			}
+			else
+			{
+				scoretext.text = "";
+			}
 			
 		}
 		private function loop(e:Event):void
