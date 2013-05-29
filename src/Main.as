@@ -10,6 +10,7 @@ package
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import Objects.Coin;
+	import Objects.Enemys;
 	import Objects.player;
 	
 	/**
@@ -39,8 +40,12 @@ package
 		private var enemies:Array = [];
 		private var scoretext:TextField = new TextField;
 		
+		//no screen items;
+		
+		
 		//stupid things
 		private var scoretextfro:TextFormat = new TextFormat();
+		private var health:Number;
 		
 		
 		public function Main():void 
@@ -62,7 +67,8 @@ package
 			addChild(scoretext);
 			
 			//other
-			Player = new player(600,100);
+			Player = new player(600, 100);
+			
 			
 			//Start level
 			level(1);
@@ -101,13 +107,12 @@ package
 				tick.stop();
 				removeChild(Player)
 				Player.onScreen = false;
-				for (var i:int = coins.length - 1 ; i > 0; i--)
+				for (var i:int = coins.length - 1 ; i >= 0; i--)
 				{
 					removeChild(coins[i]);
 					coins.splice(i, 1);
-					trace(i)
 				}
-				for (var j:int = enemies.length - 1 ; i > 0; i--)
+				for (var j:int = enemies.length - 1 ; i >= 0; i--)
 				{
 					removeChild(enemies[i]);
 					enemies.splice(i, 1);
@@ -167,6 +172,9 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
+ 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, 3, Math.random() *6);
+			enemies.push(enemy)
+			addChild(enemy)
 			enemyspawn.delay = Math.random() * 1000;
 		}
 		
@@ -174,7 +182,7 @@ package
 		{
 			if (currentlevel == 1)
 			{
-				scoretext.text = "Score: " + score;
+				scoretext.text = "Score: " + score + "\n health: " + health; 
 				scoretext.x = 10;
 				scoretext.y = 20;
 			}
@@ -186,8 +194,19 @@ package
 		}
 		private function loop(e:Event):void
 		{
-			for (var i:int = coins.length - 1 ; i > 0; i--)
+			Player.step();
+			for (var j:int = 0; j < enemies.length; j++) 
 			{
+				enemies[j].step();
+				if (enemies[j].hitTestObject(Player)) 
+				{
+					health-=1
+				}
+			}
+			
+			for (var i:int = coins.length - 1 ; i >= 0; i--)
+			{
+				coins
 			if(coins[i].x < -40)
 				{
 					removeChild(coins[i]);
@@ -228,9 +247,6 @@ package
 			{
 				level(2);
 			}
-			
-			
-			trace(e.keyCode);
 		}
 		
 		private function MouseClick(e:MouseEvent):void

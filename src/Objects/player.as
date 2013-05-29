@@ -12,7 +12,7 @@ package Objects
 	public class player extends MoveObjectStatic
 	{
 		//art
-		public var Player:Squar
+		public var art:Squar
 		
 		//movement
 		public var speed:$Vector = new $Vector();
@@ -39,19 +39,17 @@ package Objects
 			this.pos.$Y = $y;
 			
 			//places the player
-			//addchild(Player);
+			
 			//placeholder
-			Player = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
-			Player.x = 100;
-			addChild(Player);
+			art = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
+			art.x = 100;
+			//places the art
+			addChild(art);
 			
 			//creats player controles and event check
-			addEventListener(Event.ENTER_FRAME, step);
-			
-			//remove me
-			speedup.$Y = 0.3
+		//	addEventListener(Event.ENTER_FRAME, step);
 		}
-		private function step(e:Event):void
+		public function step():void
 		{
 			if (onScreen)
 			{

@@ -20,13 +20,13 @@ package Objects
 			this.x = $x;
 			this.y = $y;
 			
-			Coinart = new Sphere(0, 0, 5, 0x00ffff);
+			Coinart = new Sphere(0, 0, 17, 0xffff00);
 			
-			addEventListener(Event.ENTER_FRAME, step);
+			//SaddEventListener(Event.ENTER_FRAME, step);
 			addChild(Coinart);
 		}
 		
-		private function step(e:Event):void
+		private function step():void
 		{
 			this.x -= speed
 			//if (this.x < -40)
