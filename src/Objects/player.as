@@ -28,6 +28,7 @@ package Objects
 		private var pulseSpacebar:Boolean = false;
 		public var powerup:int = 0;
 		public var direction:int = -1;
+		public var onScreen:Boolean = false;
 		
 		public function player($y:Number,$x:Number) 
 		{
@@ -52,101 +53,104 @@ package Objects
 		}
 		private function step(e:Event):void
 		{
-			if (this.y < 19) 
-			{					
-				speed.$Y = 0;
-				this.y = 20;
-			}
-			if (powerup == 0) 
+			if (onScreen)
 			{
-				//Spacebarpress
-				if(Spacebar && this.y > 20)
-				{
-				speedup.$Y = 0 - 1;
+				if (this.y < 19) 
+				{					
+					speed.$Y = 0;
+					this.y = 20;
 				}
-				//Spacebar release
-				if(this.y < floorHeight  && Spacebar == false )
+				if (powerup == 0) 
 				{
-					speedup.$Y = 1;
-					g = false;
-				}	
-				//stop movement
-				if (this.y > floorHeight+1 && g == false)
-				{
-					speedup.$Y = 0
-					this.y = floorHeight
-					speed.$Y = 0
-					g = true;
-				}
-			}
-			//powerup gravity flip(voor een of andere rede val je door de grond
-			if (powerup == 1)
-			{
-				//Spacebarpulseed
-				if (Spacebar == false && pulseSpacebar) 
-				{
-					direction = direction * -1;
-					trace("gravitflip")
-					
-					pulseSpacebar = false;			
-				}
-				if (Spacebar) 
-				{
-					pulseSpacebar = true;
-					g = true;
-				}
-				if (direction < 0)
-				{
-					if (this.y > 19&& g)
+					//Spacebarpress
+					if(Spacebar && this.y > 20)
 					{
-						speedup.$Y = -1;
+					speedup.$Y = 0 - 1;
 					}
-					
-					if (this.y < 19)
-					{
-						g = false;
-						this.y = 20;
-						speedup.$Y = 0;
-						speed.$Y=0
-					}
-					if (this.y > floorHeight+1)
-					{
-						//g = false;
-						this.y = floorHeight;
-						//speedup.$Y = 0;
-						speed.$Y=0
-					}
-				}
-				if (direction > 0)
-				{
-					if (this.y > 19)
-					{
-						this.y = 20
-						speedup.$Y = 0
-						speed.$Y=0
-					}
-					if (this.y < floorHeight+1&& g)
+					//Spacebar release
+					if(this.y < floorHeight  && Spacebar == false )
 					{
 						speedup.$Y = 1;
-					}
-					
-					if (this.y > 19)
+						g = false;
+					}	
+					//stop movement
+					if (this.y > floorHeight+1 && g == false)
 					{
-						//g = false;
-						this.y = 20;
-						//speedup.$Y = 0;
-						speed.$Y=0
+						speedup.$Y = 0
+						this.y = floorHeight
+						speed.$Y = 0
+						g = true;
 					}
 				}
-			}
+				//powerup gravity flip(voor een of andere rede val je door de grond
+				if (powerup == 1)
+				{
+					//Spacebarpulseed
+					if (Spacebar == false && pulseSpacebar) 
+					{
+						direction = direction * -1;
+						trace("gravitflip")
+						
+						pulseSpacebar = false;			
+					}
+					if (Spacebar) 
+					{
+						pulseSpacebar = true;
+						g = true;
+					}
+					
+					if (direction < 0)
+					{
+						if (this.y > 19&& g)
+						{
+							speedup.$Y = -1;
+						}
+						
+						if (this.y < 19)
+						{
+							g = false;
+							this.y = 20;
+							speedup.$Y = 0;
+							speed.$Y=0
+						}
+						if (this.y > floorHeight+1)
+						{
+							//g = false;
+							this.y = floorHeight;
+							//speedup.$Y = 0;
+							speed.$Y=0
+						}
+					}
+					if (direction > 0)
+					{
+						if (this.y > 19)
+						{
+							this.y = 20
+							speedup.$Y = 0
+							speed.$Y=0
+						}
+						if (this.y < floorHeight+1&& g)
+						{
+							speedup.$Y = 1;
+						}
+						
+						if (this.y > 19)
+						{
+							//g = false;
+							this.y = 20;
+							//speedup.$Y = 0;
+							speed.$Y=0
+						}
+					}
+				}
 				
-			//Movement
-			speed.$X += speedup.$X;
-			speed.$Y += speedup.$Y;
-			
-			this.x += speed.$X;
-			this.y += speed.$Y;
-			
+				//Movement
+				speed.$X += speedup.$X;
+				speed.$Y += speedup.$Y;
+				
+				this.x += speed.$X;
+				this.y += speed.$Y;
+			}
 		}
 	}
 

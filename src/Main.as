@@ -7,6 +7,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	import Objects.Coin;
 	import Objects.player;
@@ -22,6 +23,7 @@ package
 		private var tick:Timer
 		private var textupdate:Timer
 		//public static var _stage:Stage = Stage;
+		private var enemyspawn:Timer
 		
 		//counters
 		private var coinRowLength:int = 0;
@@ -34,22 +36,37 @@ package
 		//screenobjects
 		private var Player:player;
 		private var coins:Array = [];
+		private var enemies:Array = [];
 		private var scoretext:TextField = new TextField;
+		
+		//stupid things
+		private var scoretextfro:TextFormat = new TextFormat();
 		
 		
 		public function Main():void 
 		{
 			//just the ticker
 			tick = new Timer(250);
-			//tick.start();
+			
+			//enemy spawner
+			enemyspawn = new Timer(1000);
+
 			//textupdate timer
 			textupdate = new Timer(100);
 			textupdate.start();
-			level(1);
+			
 			
 			//text stuff
-			//scoretext.
+			scoretextfro.size = 50;
+			scoretext.setTextFormat(scoretextfro);
 			addChild(scoretext);
+			
+			//other
+			Player = new player(600,100);
+			
+			//Start level
+			level(1);
+			
 			
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
@@ -60,6 +77,7 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,KeyPressed);
 			stage.addEventListener(KeyboardEvent.KEY_UP, KeyRelease);
 			stage.addEventListener(MouseEvent.CLICK, MouseClick);
+			enemyspawn.addEventListener(TimerEvent.TIMER, SpawnEnemy);
 		}
 		
 		private function init(e:Event = null):void 
@@ -71,40 +89,60 @@ package
 		
 		private function level(Level:int):void
 		{
+			//screen clear
 			if (currentlevel == 0)
 			{
 				//clear start screen
 			}
 			
-			if (currentlevel == 1)
+			else if (currentlevel == 1)
 			{
-				//remove player
-				//remove coins
+				enemyspawn.stop();
+				tick.stop();
+				removeChild(Player)
+				Player.onScreen = false;
+				for (var i:int = coins.length - 1 ; i > 0; i--)
+				{
+					removeChild(coins[i]);
+					coins.splice(i, 1);
+					trace(i)
+				}
+				for (var j:int = enemies.length - 1 ; i > 0; i--)
+				{
+					removeChild(enemies[i]);
+					enemies.splice(i, 1);
+				}
+				//remove player clear the player
 				//remove floor
 				//remove background
 				//remove sealing
 			}
 			
-			if (currentlevel == 2)
+			else if (currentlevel == 2)
 			{
 				//remove gameoverscreen
 			}
+			
+			//level building
 			if (Level == 0)
 			{
 				//create startscreen
 				currentlevel=0
 			}
 			
-			if (Level == 1)
+			else if (Level == 1)
 			{
 				//The Game it self 
 				tick.start();
-				Player = new player(600,100);
+				Player.onScreen = true;
+				Player.y = 600;
+				Player.speed.$Y = 0;
 				addChild(Player);
-				currentlevel=1
+				currentlevel = 1
+				enemyspawn.start();
 			}
 			
-			if (Level == 2)
+			else if (Level == 2)
 			{
 				//create gameoverscreen
 				currentlevel=2
@@ -125,6 +163,11 @@ package
 				coinRowLength = Math.floor(Math.random() * 16 + 5);
 				coinHeight = Math.random() * 580 + 20;
 			}
+		}
+		
+		private function SpawnEnemy(e:TimerEvent):void
+		{
+			enemyspawn.delay = Math.random() * 1000;
 		}
 		
 		private function Textupdate(e:TimerEvent):void
@@ -148,13 +191,13 @@ package
 			if(coins[i].x < -40)
 				{
 					removeChild(coins[i]);
-					coins.splice(1, i);
+					coins.splice(i, 1);
 				}
 				if (coins[i].hitTestObject(Player))
 				{
 					score += 1
 					removeChild(coins[i]);
-					coins.splice(1, i);
+					coins.splice(i, 1);
 				}
 			}
 		}
@@ -173,6 +216,21 @@ package
 			{
 				if (e.keyCode == 32) { Player.Spacebar = false }
 			}
+			if (e.keyCode == 49)
+			{
+				level(0);
+			}			
+			if (e.keyCode == 50)
+			{
+				level(1);
+			}
+			if (e.keyCode == 51)
+			{
+				level(2);
+			}
+			
+			
+			trace(e.keyCode);
 		}
 		
 		private function MouseClick(e:MouseEvent):void
