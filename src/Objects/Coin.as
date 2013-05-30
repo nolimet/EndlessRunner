@@ -1,6 +1,7 @@
 package Objects 
 {
 	import code.Sphere;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
@@ -12,7 +13,7 @@ package Objects
 	{
 		public var speed:Number = 5;
 		public var deleted:Boolean = false;
-		//private var Coinart:coinart = new coinart()
+		//private var Coinart:MovieClip = new coinart()
 		private var Coinart:Sphere;
 		
 		public function Coin($x:Number, $y:Number)
@@ -26,7 +27,7 @@ package Objects
 			addChild(Coinart);
 		}
 		
-		private function step():void
+		public function step():void
 		{
 			this.x -= speed
 			//if (this.x < -40)

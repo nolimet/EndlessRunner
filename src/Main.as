@@ -9,6 +9,8 @@ package
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
+	import flash.display.MovieClip
+	import net.hires.debug.Stats;
 	import Objects.Coin;
 	import Objects.Enemys;
 	import Objects.player;
@@ -39,6 +41,7 @@ package
 		private var coins:Array = [];
 		private var enemies:Array = [];
 		private var scoretext:TextField = new TextField;
+		private var debug:Stats = new Stats();
 		
 		//no screen items;
 		
@@ -72,6 +75,9 @@ package
 			
 			//Start level
 			level(1);
+			
+			//debug
+			addChild(debug);
 			
 			
 			if (stage) init();
@@ -145,6 +151,7 @@ package
 				addChild(Player);
 				currentlevel = 1
 				enemyspawn.start();
+				health = 10;
 			}
 			
 			else if (Level == 2)
@@ -172,10 +179,14 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
- 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, 3, Math.random() *6);
-			enemies.push(enemy)
+ 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, 3, Math.random() *3);
+			
 			addChild(enemy)
-			enemyspawn.delay = Math.random() * 1000;
+			enemies.push(enemy)
+			
+			enemyspawn.delay = Math.random() * 1500 +250;
+			
+			trace("I was made! -enemy " + enemies.length +"-")
 		}
 		
 		private function Textupdate(e:TimerEvent):void
@@ -198,6 +209,11 @@ package
 			for (var j:int = 0; j < enemies.length; j++) 
 			{
 				enemies[j].step();
+				if (enemies[j].x < -200)
+				{
+					removeChild(enemies[i])
+					enemies.splice(i, 1);
+				}
 				if (enemies[j].hitTestObject(Player)) 
 				{
 					health-=1
@@ -206,7 +222,7 @@ package
 			
 			for (var i:int = coins.length - 1 ; i >= 0; i--)
 			{
-				coins
+				coins[i].step();
 			if(coins[i].x < -40)
 				{
 					removeChild(coins[i]);
