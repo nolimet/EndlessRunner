@@ -17,7 +17,7 @@ package
 	
 	/**
 	 * ...
-	 * @author Jesse Stam && kerim
+	 * @author Jesse Stam &&Kerim Birlik
 	 */
 	
 	public class Main extends Sprite 
@@ -77,7 +77,7 @@ package
 			level(1);
 			
 			//debug
-			addChild(debug);
+			//addChild(debug);
 			
 			
 			if (stage) init();
@@ -118,10 +118,10 @@ package
 					removeChild(coins[i]);
 					coins.splice(i, 1);
 				}
-				for (var j:int = enemies.length - 1 ; i >= 0; i--)
+				for (var j:int = enemies.length - 1 ; j >= 0; j--)
 				{
-					removeChild(enemies[i]);
-					enemies.splice(i, 1);
+					removeChild(enemies[j]);
+					enemies.splice(j, 1);
 				}
 				//remove player clear the player
 				//remove floor
@@ -179,14 +179,12 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
- 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, 3, Math.random() *3);
-			
-			addChild(enemy)
-			enemies.push(enemy)
+ 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random()*4+2, Math.random() *3);
+			enemies.push(enemy);
+			addChild(enemy);
 			
 			enemyspawn.delay = Math.random() * 1500 +250;
 			
-			trace("I was made! -enemy " + enemies.length +"-")
 		}
 		
 		private function Textupdate(e:TimerEvent):void
@@ -206,23 +204,25 @@ package
 		private function loop(e:Event):void
 		{
 			Player.step();
-			for (var j:int = 0; j < enemies.length; j++) 
+			for (var j:int = enemies.length - 1 ; j >= 0; j--) 
 			{
 				enemies[j].step();
 				if (enemies[j].x < -200)
 				{
-					removeChild(enemies[i])
-					enemies.splice(i, 1);
+					removeChild(enemies[j])
+					enemies.splice(j, 1);
 				}
 				if (enemies[j].hitTestObject(Player)) 
 				{
-					health-=1
+					health -= 1
+					removeChild(enemies[j])
+					enemies.splice(j, 1);
 				}
 			}
 			
 			for (var i:int = coins.length - 1 ; i >= 0; i--)
 			{
-				coins[i].step();
+				coins[i].step(); 
 			if(coins[i].x < -40)
 				{
 					removeChild(coins[i]);
@@ -230,7 +230,14 @@ package
 				}
 				if (coins[i].hitTestObject(Player))
 				{
-					score += 1
+					if (coins[i].negative)
+					{
+						score -=10
+					}
+					else
+					{
+						score += 1
+					}
 					removeChild(coins[i]);
 					coins.splice(i, 1);
 				}
