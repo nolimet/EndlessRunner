@@ -11,6 +11,7 @@ package
 	import flash.utils.Timer;
 	import flash.display.MovieClip
 	import net.hires.debug.Stats;
+	import Objects.Background;
 	import Objects.Coin;
 	import Objects.Enemys;
 	import Objects.player;
@@ -42,6 +43,7 @@ package
 		private var enemies:Array = [];
 		private var scoretext:TextField = new TextField;
 		private var debug:Stats = new Stats();
+		private var background:Background = new Background();
 		
 		//no screen items;
 		
@@ -53,7 +55,7 @@ package
 		
 		public function Main():void 
 		{
-			//just the ticker
+			//just the CoinSpawner
 			tick = new Timer(250);
 			
 			//enemy spawner
@@ -74,7 +76,7 @@ package
 			
 			
 			//Start level
-			level(1);
+			level(0);
 			
 			//debug
 			//addChild(debug);
@@ -83,13 +85,16 @@ package
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			tick.addEventListener(TimerEvent.TIMER, ticker);
+			tick.addEventListener(TimerEvent.TIMER, CoinSpawner);
 			textupdate.addEventListener(TimerEvent.TIMER, Textupdate);
 			addEventListener(Event.ENTER_FRAME, loop);
+			enemyspawn.addEventListener(TimerEvent.TIMER, SpawnEnemy);
+			
+			//stage events
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,KeyPressed);
 			stage.addEventListener(KeyboardEvent.KEY_UP, KeyRelease);
 			stage.addEventListener(MouseEvent.CLICK, MouseClick);
-			enemyspawn.addEventListener(TimerEvent.TIMER, SpawnEnemy);
+			
 		}
 		
 		private function init(e:Event = null):void 
@@ -112,6 +117,7 @@ package
 				enemyspawn.stop();
 				tick.stop();
 				removeChild(Player)
+				removeChild(background);
 				Player.onScreen = false;
 				for (var i:int = coins.length - 1 ; i >= 0; i--)
 				{
@@ -152,6 +158,9 @@ package
 				currentlevel = 1
 				enemyspawn.start();
 				health = 10;
+				//background = new Background();
+				addChild(background)
+				
 			}
 			
 			else if (Level == 2)
@@ -161,7 +170,7 @@ package
 			}
 		}
 		
-		private function ticker(e:TimerEvent):void
+		private function CoinSpawner(e:TimerEvent):void
 		{
 			if (coinRowLength > 0)
 			{
@@ -203,7 +212,12 @@ package
 		}
 		private function loop(e:Event):void
 		{
-			Player.step();
+			if (currentlevel == 1)
+			{
+				Player.step();
+				background.run();
+			}
+			
 			for (var j:int = enemies.length - 1 ; j >= 0; j--) 
 			{
 				enemies[j].step();
@@ -222,7 +236,7 @@ package
 			
 			for (var i:int = coins.length - 1 ; i >= 0; i--)
 			{
-				coins[i].step(); 
+			coins[i].step(); 
 			if(coins[i].x < -40)
 				{
 					removeChild(coins[i]);
