@@ -51,7 +51,7 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="lib\Spike.swc" />
+    <element path="lib\StartButton.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

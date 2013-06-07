@@ -15,6 +15,7 @@ package
 	import Objects.Coin;
 	import Objects.Enemys;
 	import Objects.player;
+	import Objects.Button;
 	
 	/**
 	 * ...
@@ -32,7 +33,7 @@ package
 		//counters
 		private var coinRowLength:int = 0;
 		private var coinHeight:int = 0;
-		private var currentlevel:int = 0;
+		private var currentlevel:int = -1;
 		//private var coinRandomInter:Number = 1;
 		public var score:int = 0
 		
@@ -44,6 +45,7 @@ package
 		private var scoretext:TextField = new TextField;
 		private var debug:Stats = new Stats();
 		private var background:Background = new Background();
+		private var startButton:Button
 		
 		//no screen items;
 		
@@ -110,6 +112,8 @@ package
 			if (currentlevel == 0)
 			{
 				//clear start screen
+				
+				removeChild(startButton);
 			}
 			
 			else if (currentlevel == 1)
@@ -144,6 +148,8 @@ package
 			if (Level == 0)
 			{
 				//create startscreen
+				startButton = new Button(300, 500, 1);
+				addChild(startButton);
 				currentlevel=0
 			}
 			
@@ -174,7 +180,7 @@ package
 		{
 			if (coinRowLength > 0)
 			{
-				var coin:Coin = new Coin(1290, coinHeight);
+				var coin:Coin = new Coin(1290, coinHeight, score);
 				coins.push(coin);
 				addChild(coin);
 				coinRowLength--;
@@ -188,7 +194,7 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
- 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random()*4+2, Math.random() *3);
+ 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random()*4+2, Math.random() *4);
 			enemies.push(enemy);
 			addChild(enemy);
 			
@@ -212,15 +218,22 @@ package
 		}
 		private function loop(e:Event):void
 		{
+			if (currentlevel == 0)
+			{
+				if (startButton.clicked)
+				{
+					level(1);
+				}
+			}
 			if (currentlevel == 1)
 			{
 				Player.step();
-				background.run();
 			}
 			
 			for (var j:int = enemies.length - 1 ; j >= 0; j--) 
 			{
 				enemies[j].step();
+				enemies[j].gottenX = enemies[j].x;
 				if (enemies[j].x < -200)
 				{
 					removeChild(enemies[j])
@@ -283,6 +296,10 @@ package
 			if (e.keyCode == 51)
 			{
 				level(2);
+			}
+			if (e.keyCode == 53)
+			{
+				score+=100
 			}
 		}
 		
