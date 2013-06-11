@@ -9,7 +9,7 @@ package Objects
 	
 	/**
 	 * ...
-	 * @author Jesse Stam && Kerim Birlik
+	 * @author Jesse Stam
 	 */
 	public class Enemys extends MovieClip
 	{		
@@ -59,7 +59,6 @@ package Objects
 					addChild(bullet);
 					bullets.push(bullet);
 					
-					trace("fired")
 				}
 				fireDelay--
 			

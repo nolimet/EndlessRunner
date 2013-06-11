@@ -17,7 +17,7 @@ package Objects
 		
 		public function Background() 
 		{
-			treeSpawner=new Timer(2500 + 300 * Math.random(),1)
+			//eeSpawner=new Timer(2500 + 300 * Math.random(),1)
 			//treeSpawner.addEventListener(TimerEvent.TIMER, TreeSpawner);
 		}
 		

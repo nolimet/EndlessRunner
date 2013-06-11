@@ -22,7 +22,7 @@ package Objects
 			addChild(art);
 		}
 		
-		public function move()
+		public function move():void
 		{
 			this.x+=speed
 		}

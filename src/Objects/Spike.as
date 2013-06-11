@@ -15,7 +15,7 @@ package Objects
 			addChild(art);
 		}
 		
-		public function move(speed:Number);
+		public function move(speed:Number):void
 		{
 		this.x += speed;
 		}

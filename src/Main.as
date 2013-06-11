@@ -25,7 +25,7 @@ package
 	public class Main extends Sprite 
 	{
 		//timers
-		private var tick:Timer
+		private var coinSpawner:Timer
 		private var textupdate:Timer
 		//public static var _stage:Stage = Stage;
 		private var enemyspawn:Timer
@@ -36,6 +36,7 @@ package
 		private var currentlevel:int = -1;
 		//private var coinRandomInter:Number = 1;
 		public var score:int = 0
+		public var highScore:int = 0
 		
 		
 		//screenobjects
@@ -48,17 +49,17 @@ package
 		private var startButton:Button
 		
 		//no screen items;
-		
+		private var textfont:TextFormat = new TextFormat(null, 26);
 		
 		//stupid things
-		private var scoretextfro:TextFormat = new TextFormat();
+		//private var scoretextfro:TextFormat = new TextFormat();
 		private var health:Number;
 		
 		
 		public function Main():void 
 		{
 			//just the CoinSpawner
-			tick = new Timer(250);
+			coinSpawner = new Timer(250);
 			
 			//enemy spawner
 			enemyspawn = new Timer(1000);
@@ -69,8 +70,8 @@ package
 			
 			
 			//text stuff
-			scoretextfro.size = 50;
-			scoretext.setTextFormat(scoretextfro);
+			scoretext.defaultTextFormat = textfont;
+			scoretext.width = 500;
 			addChild(scoretext);
 			
 			//other
@@ -87,7 +88,7 @@ package
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			tick.addEventListener(TimerEvent.TIMER, CoinSpawner);
+			coinSpawner.addEventListener(TimerEvent.TIMER, CoinSpawner);
 			textupdate.addEventListener(TimerEvent.TIMER, Textupdate);
 			addEventListener(Event.ENTER_FRAME, loop);
 			enemyspawn.addEventListener(TimerEvent.TIMER, SpawnEnemy);
@@ -119,7 +120,7 @@ package
 			else if (currentlevel == 1)
 			{
 				enemyspawn.stop();
-				tick.stop();
+				coinSpawner.stop();
 				removeChild(Player)
 				removeChild(background);
 				Player.onScreen = false;
@@ -156,7 +157,7 @@ package
 			else if (Level == 1)
 			{
 				//The Game it self 
-				tick.start();
+				coinSpawner.start();
 				Player.onScreen = true;
 				Player.y = 600;
 				Player.speed.$Y = 0;
@@ -164,7 +165,9 @@ package
 				currentlevel = 1
 				enemyspawn.start();
 				health = 10;
-				//background = new Background();
+				scoretext.x = 0
+				scoretext.y = 0;
+				background = new Background();
 				addChild(background)
 				
 			}
@@ -172,7 +175,10 @@ package
 			else if (Level == 2)
 			{
 				//create gameoverscreen
-				currentlevel=2
+				currentlevel = 2
+				//addChild(scoretext);
+				
+				
 			}
 		}
 		
@@ -204,16 +210,27 @@ package
 		
 		private function Textupdate(e:TimerEvent):void
 		{
-			if (currentlevel == 1)
-			{
-				scoretext.text = "Score: " + score + "\n health: " + health; 
-				scoretext.x = 10;
-				scoretext.y = 20;
-			}
-			else
+			if (currentlevel == 0)
 			{
 				scoretext.text = "";
 			}
+			if (currentlevel == 1)
+			{
+				if (score > highScore)
+				{
+					highScore = score;
+				}
+				scoretext.text = "Score: " + score+ "\nHighScore: " + highScore + "\nHealth: " + health ; 
+				scoretext.x = 10;
+				scoretext.y = 20;
+			}
+			if(currentlevel == 2)
+			{
+				scoretext.text = "Score: " + score + "\nHighScore: " + highScore;
+				scoretext.y = (720/ 2) + 100
+				scoretext.x = (1280/ 2)-100 
+			}
+
 			
 		}
 		private function loop(e:Event):void
@@ -228,6 +245,10 @@ package
 			if (currentlevel == 1)
 			{
 				Player.step();
+				if (health <= 0)
+				{
+					level(2);
+				}
 			}
 			
 			for (var j:int = enemies.length - 1 ; j >= 0; j--) 
