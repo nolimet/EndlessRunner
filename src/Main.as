@@ -143,6 +143,8 @@ package
 			else if (currentlevel == 2)
 			{
 				//remove gameoverscreen
+				removeChild(startButton);
+				
 			}
 			
 			//level building
@@ -176,6 +178,8 @@ package
 			{
 				//create gameoverscreen
 				currentlevel = 2
+				startButton = new Button(60, 600, 1);
+				addChild(startButton);
 				//addChild(scoretext);
 				
 				
@@ -200,7 +204,7 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
- 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random()*4+2, Math.random() *4);
+ 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random() * 4 + 2, Math.random() * 3);
 			enemies.push(enemy);
 			addChild(enemy);
 			

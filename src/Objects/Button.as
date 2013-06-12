@@ -10,12 +10,16 @@ package Objects
 	public class Button extends Sprite
 	{
 		public var clicked:Boolean = false;
-		private var art:MovieClip = new StartArt();
+		private var art:MovieClip;
 		
 		public function Button($x:Number, $y:Number, type:int)
 		{
 			this.y = $y;
 			this.x = $x;
+			if (type == 1)
+			{
+				art = new StartArt();
+			}
 			//if
 			addChild(art)
 			art.addEventListener(MouseEvent.MOUSE_DOWN, MouseClick);
