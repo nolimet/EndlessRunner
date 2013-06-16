@@ -11,24 +11,31 @@ package Objects
 	 */
 	public class Background extends MovieClip 
 	{
-		public var trees:Array = [];
-		private var treeSpawner:Timer;
+		public var backgrounds:Array = [];
+		private var Spawner:Timer;
+		private var back:MovieClip
 		private var spawningTrees:Boolean = false;
+		private var speed:int = 5
 		
 		public function Background() 
 		{
-			//eeSpawner=new Timer(2500 + 300 * Math.random(),1)
-			//treeSpawner.addEventListener(TimerEvent.TIMER, TreeSpawner);
+			Spawner = new Timer(1,1)
+			Spawner.addEventListener(TimerEvent.TIMER, TreeSpawner);
 		}
 		
-		//private function TreeSpawner(e:TimerEvent):void 
-		//{
-			//PlaceTree()
-			//spawningTrees = false;
-			//treeSpawner = new Timer(2500 + 300 * Math.random(),1);
-			//treeSpawner.stop()
-		//}
-		//
+		private function TreeSpawner(e:TimerEvent):void 
+		{
+			var ran:Number = Math.random()*1
+			Spawner = new Timer (1023 / speed, 1)
+			
+			if (ran < 1)
+			{
+				back = new Background1();
+				addChild(back)
+				backgrounds.push
+			}
+		}
+		
 		//public function run():void 
 		//{
 			//if (trees.length < 6 && spawningTrees==false)

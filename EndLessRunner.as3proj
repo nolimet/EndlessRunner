@@ -52,6 +52,9 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\StartButton.swc" />
+    <element path="lib\ArtAssets1.swc" />
+    <element path="lib\ArtAssets2.swc" />
+    <element path="lib\background1.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -71,7 +74,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\Main.as" />
+    <compile path="src\Objects\Background.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

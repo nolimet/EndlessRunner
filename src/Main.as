@@ -59,7 +59,7 @@ package
 		public function Main():void 
 		{
 			//just the CoinSpawner
-			coinSpawner = new Timer(250);
+			coinSpawner = new Timer(375);
 			
 			//enemy spawner
 			enemyspawn = new Timer(1000);
