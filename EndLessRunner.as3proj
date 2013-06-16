@@ -20,7 +20,6 @@
   <!-- Build options -->
   <build>
     <option accessible="False" />
-    <option advancedTelemetry="False" />
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
@@ -55,6 +54,9 @@
     <element path="lib\ArtAssets1.swc" />
     <element path="lib\ArtAssets2.swc" />
     <element path="lib\background1.swc" />
+    <element path="lib\background2.swc" />
+    <element path="lib\background3.swc" />
+    <element path="lib\background4.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
@@ -74,7 +76,7 @@
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
-    <compile path="src\Objects\Background.as" />
+    <compile path="src\Main.as" />
   </compileTargets>
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>

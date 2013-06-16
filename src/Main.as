@@ -115,6 +115,7 @@ package
 				//clear start screen
 				
 				removeChild(startButton);
+				removeChild(scoretext);
 			}
 			
 			else if (currentlevel == 1)
@@ -124,6 +125,7 @@ package
 				removeChild(Player)
 				removeChild(background);
 				Player.onScreen = false;
+				removeChild(scoretext);
 				for (var i:int = coins.length - 1 ; i >= 0; i--)
 				{
 					removeChild(coins[i]);
@@ -144,6 +146,7 @@ package
 			{
 				//remove gameoverscreen
 				removeChild(startButton);
+				removeChild(scoretext);
 				
 			}
 			
@@ -151,6 +154,7 @@ package
 			if (Level == 0)
 			{
 				//create startscreen
+				addChild(scoretext);
 				startButton = new Button(300, 500, 1);
 				addChild(startButton);
 				currentlevel=0
@@ -159,6 +163,8 @@ package
 			else if (Level == 1)
 			{
 				//The Game it self 
+				background = new Background();
+				addChild(background)
 				coinSpawner.start();
 				Player.onScreen = true;
 				Player.y = 600;
@@ -168,9 +174,8 @@ package
 				enemyspawn.start();
 				health = 10;
 				scoretext.x = 0
-				scoretext.y = 0;
-				background = new Background();
-				addChild(background)
+				scoretext.y = 0
+				addChild(scoretext);
 				
 			}
 			
@@ -181,6 +186,7 @@ package
 				startButton = new Button(60, 600, 1);
 				addChild(startButton);
 				//addChild(scoretext);
+				addChild(scoretext);
 				
 				
 			}
@@ -220,6 +226,7 @@ package
 			}
 			if (currentlevel == 1)
 			{
+				
 				if (score > highScore)
 				{
 					highScore = score;
@@ -249,29 +256,36 @@ package
 			if (currentlevel == 1)
 			{
 				Player.step();
+				background.run();
 				if (health <= 0)
 				{
 					level(2);
 				}
+				
+				for (var j:int = enemies.length - 1 ; j >= 0; j--) 
+				{
+					enemies[j].step();
+					//enemies[j].gottenX = enemies[j].x;
+					if (enemies[j].x < -200)
+					{
+						removeChild(enemies[j])
+						enemies.splice(j, 1);
+					}
+					if (enemies[j].hitTestObject(Player)) 
+					{
+						health -= 1
+						removeChild(enemies[j])
+						enemies.splice(j, 1);
+					}
+				}
 			}
-			
-			for (var j:int = enemies.length - 1 ; j >= 0; j--) 
+			if (currentlevel == 2)
 			{
-				enemies[j].step();
-				enemies[j].gottenX = enemies[j].x;
-				if (enemies[j].x < -200)
+				if (startButton.clicked)
 				{
-					removeChild(enemies[j])
-					enemies.splice(j, 1);
-				}
-				if (enemies[j].hitTestObject(Player)) 
-				{
-					health -= 1
-					removeChild(enemies[j])
-					enemies.splice(j, 1);
+					level(1);
 				}
 			}
-			
 			for (var i:int = coins.length - 1 ; i >= 0; i--)
 			{
 			coins[i].step(); 
