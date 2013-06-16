@@ -14,7 +14,7 @@ package
 	import Objects.Background;
 	import Objects.Coin;
 	import Objects.Enemys;
-	import Objects.player;
+	import Objects.Player;
 	import Objects.Button;
 	
 	/**
@@ -40,7 +40,7 @@ package
 		
 		
 		//screenobjects
-		private var Player:player;
+		private var player:Player;
 		private var coins:Array = [];
 		private var enemies:Array = [];
 		private var scoretext:TextField = new TextField;
@@ -75,7 +75,7 @@ package
 			addChild(scoretext);
 			
 			//other
-			Player = new player(600, 100);
+			player = new Player(600, 100);
 			
 			
 			//Start level
@@ -122,9 +122,9 @@ package
 			{
 				enemyspawn.stop();
 				coinSpawner.stop();
-				removeChild(Player)
+				removeChild(player)
 				removeChild(background);
-				Player.onScreen = false;
+				player.onScreen = false;
 				removeChild(scoretext);
 				for (var i:int = coins.length - 1 ; i >= 0; i--)
 				{
@@ -166,10 +166,10 @@ package
 				background = new Background();
 				addChild(background)
 				coinSpawner.start();
-				Player.onScreen = true;
-				Player.y = 600;
-				Player.speed.$Y = 0;
-				addChild(Player);
+				player.onScreen = true;
+				player.y = 600;
+				player.speed.$Y = 0;
+				addChild(player);
 				currentlevel = 1
 				enemyspawn.start();
 				health = 10;
@@ -255,7 +255,7 @@ package
 			}
 			if (currentlevel == 1)
 			{
-				Player.step();
+				player.step();
 				background.run();
 				if (health <= 0)
 				{
@@ -271,7 +271,7 @@ package
 						removeChild(enemies[j])
 						enemies.splice(j, 1);
 					}
-					if (enemies[j].hitTestObject(Player)) 
+					if (enemies[j].hitTestObject(player)) 
 					{
 						health -= 1
 						removeChild(enemies[j])
@@ -294,7 +294,7 @@ package
 					removeChild(coins[i]);
 					coins.splice(i, 1);
 				}
-				if (coins[i].hitTestObject(Player))
+				if (coins[i].hitTestObject(player))
 				{
 					if (coins[i].negative)
 					{
@@ -314,7 +314,7 @@ package
 		{
 			if (currentlevel == 1)
 			{
-				if (e.keyCode == 32) { Player.Spacebar = true }
+				if (e.keyCode == 32) { player.Spacebar = true }
 			}
 		}
 		
@@ -322,7 +322,7 @@ package
 		{
 			if (currentlevel == 1)
 			{
-				if (e.keyCode == 32) { Player.Spacebar = false }
+				if (e.keyCode == 32) { player.Spacebar = false }
 			}
 			if (e.keyCode == 49)
 			{

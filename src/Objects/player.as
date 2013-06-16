@@ -9,7 +9,7 @@ package Objects
 	 * ...
 	 * @author Jesse Stam
 	 */
-	public class player extends MoveObjectStatic
+	public class Player extends MoveObjectStatic
 	{
 		//art
 		public var art:Squar
@@ -30,7 +30,7 @@ package Objects
 		public var direction:int = -1;
 		public var onScreen:Boolean = false;
 		
-		public function player($y:Number,$x:Number) 
+		public function Player($y:Number,$x:Number) 
 		{
 			//sets the location
 			this.x = $x;

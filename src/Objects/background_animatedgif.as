@@ -4,8 +4,11 @@ package Objects
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	import flash.utils.Timer;
-	import Objects.PartsBackground.Tree;
+	import mx.events.Request;
+	import org.bytearray.gif.player.GIFPlayer
 	
 	/**
 	 * ...
@@ -14,17 +17,6 @@ package Objects
 	public class Background extends MovieClip 
 	{
 		//background classes
-		[Embed(source="../../lib/achtergrond01.gif")]
-		private var Background1:Class;
-		
-		[Embed(source="../../lib/achtergrond02.gif")]
-		private var Background2:Class;
-		
-		[Embed(source="../../lib/achtergrond03.gif")]
-		private var Background3:Class;
-		
-		[Embed(source="../../lib/achtergrond04.gif")]
-		private var Background4:Class;
 		
 		//otherthings
 		public var backgrounds:Array = [];
@@ -39,16 +31,18 @@ package Objects
 			//Spawner = new Timer(200)
 			
 				//do once
-				var back:Bitmap
-				back = new Background2();
-				addChild(back)
-				backgrounds.push(back);
+				var backr:URLRequest = new URLRequest("lib/achtergrond01.gif");
+				var backp:GIFPlayer = new GIFPlayer();
+				backp.load(backr);
+				addChild(backp)
+				backgrounds.push(backp);
 				
-				var back2:Bitmap
-				back2 = new Background4();
-				back2.x =-1280
-				addChild(back2)
-				backgrounds.push(back2);
+				
+				var backr2:URLRequest = new URLRequest("lib/achtergrond02.gif");
+				var backp2:GIFPlayer = new GIFPlayer();
+				backp.load(backr2);
+				addChild(backp2)
+				backgrounds.push(backp2);
 				
 			Spawner.start();
 			Spawner.addEventListener(TimerEvent.TIMER, TreeSpawner);
@@ -58,29 +52,30 @@ package Objects
 		{
 			var ran:Number = Math.random()*4
 			
-			var back:Bitmap
+			var backr:URLRequest
 			
 			if (ran < 1)
 			{
-				back = new Background1();
+				backr = new URLRequest("lib/achtergrond01.gif");
 			}
 			if (ran >= 1 && ran < 2)
 			{
-				back = new Background2();
+				backr = new URLRequest("lib/achtergrond02.gif");
 			}
-			
 			if (ran >= 2 && ran < 3)
 			{
-				back = new Background3();
+				backr = new URLRequest("lib/achtergrond03.gif");
 			}
 			if (ran >= 3 && ran < 4)
 			{
-				back = new Background4();
+				backr = new URLRequest("lib/achtergrond04.gif");
 			}
 			
-		back.x=-1280
-				addChild(back)
-				backgrounds.push(back);
+			var backp:GIFPlayer = new GIFPlayer();
+			
+				backp.x=-1280
+				addChild(backp)
+				backgrounds.push(backp);
 		}
 		
 		public function run():void 
