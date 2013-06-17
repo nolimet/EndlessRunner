@@ -29,10 +29,13 @@ package Objects
 			
 			if (1 > Math.random() * chance) { negative = !negative };
 			
-			if (negative) { Coinart = new RotteAppel(); }
-			else if(ranart <1 ){ Coinart = new Blauwsnoepje() }
-			else if(ranart >=1 && ranart<2 ){ Coinart = new chocopudi()  }
-			else if(ranart >=2 && ranart<3 ){ Coinart = new snoepje1()  }
+			if(ranart <1 && negative){ Coinart = new RotteAppel() }
+			if(ranart >=1 && ranart<2 && negative){ Coinart = new Wortel()  }
+			if (ranart >= 2 && ranart < 3 && negative) { Coinart = new Sla()  }
+			
+			if(ranart <1 && negative == false){ Coinart = new Blauwsnoepje() }
+			if(ranart >=1 && ranart<2 && negative == false){ Coinart = new chocopudi()  }
+			if(ranart >=2 && ranart<3 && negative == false){ Coinart = new snoepje1()  }
 			
 			//trace(chance)
 			addChild(Coinart);

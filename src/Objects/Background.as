@@ -46,7 +46,7 @@ package Objects
 				
 				var back2:Bitmap
 				back2 = new Background4();
-				back2.x =-1280
+				back2.x =1280
 				addChild(back2)
 				backgrounds.push(back2);
 				
@@ -78,7 +78,7 @@ package Objects
 				back = new Background4();
 			}
 			
-		back.x=-1280
+		back.x=1280
 				addChild(back)
 				backgrounds.push(back);
 		}
@@ -87,8 +87,8 @@ package Objects
 		{
 			for (var i:int = 0; i < backgrounds.length; i++) 
 			{
-				backgrounds[i].x += speed;
-				if (backgrounds[i].x > 1300)
+				backgrounds[i].x -= speed;
+				if (backgrounds[i].x < -1300)
 				{
 					removeChild(backgrounds[i])
 					backgrounds.splice(i, 1);

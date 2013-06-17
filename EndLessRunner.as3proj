@@ -51,8 +51,7 @@
   <!-- SWC Libraries -->
   <libraryPaths>
     <element path="lib\StartButton.swc" />
-    <element path="lib\ArtAssets1.swc" />
-    <element path="lib\ArtAssets2.swc" />
+    <element path="lib\Assests.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
