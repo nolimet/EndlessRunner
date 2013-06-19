@@ -6,6 +6,7 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.media.Sound;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
@@ -16,6 +17,7 @@ package
 	import Objects.Enemys;
 	import Objects.Player;
 	import Objects.Button;
+	import Objects.SoundPlayer;
 	
 	/**
 	 * ...
@@ -27,7 +29,6 @@ package
 		//timers
 		private var coinSpawner:Timer
 		private var textupdate:Timer
-		//public static var _stage:Stage = Stage;
 		private var enemyspawn:Timer
 		
 		//counters
@@ -50,6 +51,7 @@ package
 		
 		//no screen items;
 		private var textfont:TextFormat = new TextFormat(null, 26);
+		private var backmus:SoundPlayer = new SoundPlayer();
 		
 		//stupid things
 		//private var scoretextfro:TextFormat = new TextFormat();
@@ -96,7 +98,6 @@ package
 			//stage events
 			stage.addEventListener(KeyboardEvent.KEY_DOWN,KeyPressed);
 			stage.addEventListener(KeyboardEvent.KEY_UP, KeyRelease);
-			stage.addEventListener(MouseEvent.CLICK, MouseClick);
 			
 		}
 		
@@ -109,13 +110,15 @@ package
 		
 		private function level(Level:int):void
 		{
+			//reset keys
+			
 			//screen clear
 			if (currentlevel == 0)
 			{
-				//clear start screen
-				
+				backmus.stop();	
 				removeChild(startButton);
 				removeChild(scoretext);
+				removeChild(background);
 			}
 			
 			else if (currentlevel == 1)
@@ -126,6 +129,7 @@ package
 				removeChild(background);
 				player.onScreen = false;
 				removeChild(scoretext);
+				backmus.stop()
 				for (var i:int = coins.length - 1 ; i >= 0; i--)
 				{
 					removeChild(coins[i]);
@@ -134,6 +138,7 @@ package
 				for (var j:int = enemies.length - 1 ; j >= 0; j--)
 				{
 					removeChild(enemies[j]);
+					
 					enemies.splice(j, 1);
 				}
 				//remove player clear the player
@@ -155,7 +160,10 @@ package
 			{
 				//create startscreen
 				addChild(scoretext);
+				backmus = new SoundPlayer(2);
 				startButton = new Button(300, 500, 1);
+				background = new Background(true, 0);
+				addChild(background);
 				addChild(startButton);
 				currentlevel=0
 			}
@@ -164,6 +172,7 @@ package
 			{
 				//The Game it self 
 				background = new Background();
+				backmus = new SoundPlayer(1);
 				addChild(background)
 				coinSpawner.start();
 				player.onScreen = true;
@@ -284,6 +293,7 @@ package
 				if (startButton.clicked)
 				{
 					level(1);
+					score=0
 				}
 			}
 			for (var i:int = coins.length - 1 ; i >= 0; i--)
@@ -342,10 +352,6 @@ package
 			}
 		}
 		
-		private function MouseClick(e:MouseEvent):void
-		{
-			
-		}
 	}
 	
 }

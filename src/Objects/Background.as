@@ -5,7 +5,6 @@ package Objects
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import Objects.PartsBackground.Tree;
 	
 	/**
 	 * ...
@@ -29,12 +28,14 @@ package Objects
 		//otherthings
 		public var backgrounds:Array = [];
 		private var Spawner:Timer;
+		private var staticArt:MovieClip;
 		//private var back:MovieClip
-		private var spawningTrees:Boolean = false;
 		private var speed:int = 5
 		
-		public function Background() 
+		public function Background($static:Boolean = false, lvl:int = -1 ) 
 		{
+			if ($static == false)
+			{
 			Spawner = new Timer(8534)
 			//Spawner = new Timer(200)
 			
@@ -52,6 +53,19 @@ package Objects
 				
 			Spawner.start();
 			Spawner.addEventListener(TimerEvent.TIMER, TreeSpawner);
+			}
+			if ($static)
+			{
+				if (lvl ==0)
+				{
+				staticArt = new StartScreen();
+				addChild(staticArt);
+				}
+				if (lvl == 2)
+				{
+					
+				}
+			}
 		}
 		
 		private function TreeSpawner(e:TimerEvent):void 

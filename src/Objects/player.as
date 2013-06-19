@@ -1,5 +1,6 @@
 package Objects 
 {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import code.$Vector;
 	import code.Squar;
@@ -12,7 +13,7 @@ package Objects
 	public class Player extends MoveObjectStatic
 	{
 		//art
-		public var art:Squar
+		public var art:MovieClip
 		
 		//movement
 		public var speed:$Vector = new $Vector();
@@ -29,6 +30,7 @@ package Objects
 		public var powerup:int = 0;
 		public var direction:int = -1;
 		public var onScreen:Boolean = false;
+		private var artchanged:Boolean = false;
 		
 		public function Player($y:Number,$x:Number) 
 		{
@@ -41,10 +43,13 @@ package Objects
 			//places the player
 			
 			//placeholder
-			art = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
-			art.x = 100;
+			//art = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
+			//art.x = 100;
 			//places the art
+			art = new CharRun;
 			addChild(art);
+			art.height = art.height / 2.8
+			art.width = art.width/2.8
 			
 			//creats player controles and event check
 		//	addEventListener(Event.ENTER_FRAME, step);
@@ -64,6 +69,7 @@ package Objects
 					if(Spacebar && this.y > 20)
 					{
 					speedup.$Y = 0 - 1;
+					artchanged = false;
 					}
 					//Spacebar release
 					if(this.y < floorHeight  && Spacebar == false )
@@ -71,6 +77,7 @@ package Objects
 						speedup.$Y = 1;
 						g = false;
 					}	
+					
 					//stop movement
 					if (this.y > floorHeight+1 && g == false)
 					{
@@ -78,69 +85,37 @@ package Objects
 						this.y = floorHeight
 						speed.$Y = 0
 						g = true;
+						artchanged = false;
 					}
 				}
-				//powerup gravity flip(voor een of andere rede val je door de grond
-				if (powerup == 1)
+				
+				//Image Changer
+				if (speed.$Y==0 && artchanged==false && g)
 				{
-					//Spacebarpulseed
-					if (Spacebar == false && pulseSpacebar) 
-					{
-						direction = direction * -1;
-						trace("gravitflip")
-						
-						pulseSpacebar = false;			
-					}
-					if (Spacebar) 
-					{
-						pulseSpacebar = true;
-						g = true;
-					}
-					
-					if (direction < 0)
-					{
-						if (this.y > 19&& g)
-						{
-							speedup.$Y = -1;
-						}
-						
-						if (this.y < 19)
-						{
-							g = false;
-							this.y = 20;
-							speedup.$Y = 0;
-							speed.$Y=0
-						}
-						if (this.y > floorHeight+1)
-						{
-							//g = false;
-							this.y = floorHeight;
-							//speedup.$Y = 0;
-							speed.$Y=0
-						}
-					}
-					if (direction > 0)
-					{
-						if (this.y > 19)
-						{
-							this.y = 20
-							speedup.$Y = 0
-							speed.$Y=0
-						}
-						if (this.y < floorHeight+1&& g)
-						{
-							speedup.$Y = 1;
-						}
-						
-						if (this.y > 19)
-						{
-							//g = false;
-							this.y = 20;
-							//speedup.$Y = 0;
-							speed.$Y=0
-						}
-					}
+					removeChild(art);
+					art = new CharRun;
+					addChild(art);
+					artchanged = true
+					art.height = art.height / 3
+					art.width = art.width / 3
+					art.x = 100
+					art.y= 50
 				}
+				else if( artchanged==false)
+				{
+					removeChild(art);
+					art = new CharFly;
+					addChild(art);
+					artchanged = true
+					art.height = art.height / 3
+					art.width = art.width /3
+					art.x = 100
+					art.y = 50
+				}
+				
+				
+				//this.x = 100
+				
 				
 				//Movement
 				speed.$X += speedup.$X;

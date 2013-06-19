@@ -53,6 +53,8 @@
   <libraryPaths>
     <element path="lib\StartButton.swc" />
     <element path="lib\Assests.swc" />
+    <element path="lib\Character.swc" />
+    <element path="lib\StartScreen.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
