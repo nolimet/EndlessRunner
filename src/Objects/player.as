@@ -40,11 +40,6 @@ package Objects
 			this.pos.$X = $x;
 			this.pos.$Y = $y;
 			
-			//places the player
-			
-			//placeholder
-			//art = new Squar(0, 0, 40, 20, 0xff0000, 0, false); 
-			//art.x = 100;
 			//places the art
 			art = new CharRun;
 			addChild(art);

@@ -110,8 +110,6 @@ package
 		
 		private function level(Level:int):void
 		{
-			//reset keys
-			
 			//screen clear
 			if (currentlevel == 0)
 			{
@@ -141,10 +139,6 @@ package
 					
 					enemies.splice(j, 1);
 				}
-				//remove player clear the player
-				//remove floor
-				//remove background
-				//remove sealing
 			}
 			
 			else if (currentlevel == 2)
@@ -152,6 +146,7 @@ package
 				//remove gameoverscreen
 				removeChild(startButton);
 				removeChild(scoretext);
+				backmus.stop();
 				
 			}
 			
@@ -196,9 +191,7 @@ package
 				backmus = new SoundPlayer(3);
 				addChild(startButton);
 				//addChild(scoretext);
-				addChild(scoretext);
-				
-				
+				addChild(scoretext);		
 			}
 		}
 		
