@@ -24,6 +24,11 @@ package Objects
 				sound.load(new URLRequest("lib/intro.mp3"));
 				channel = sound.play(0,9001,null);
 			}
+			if (toPlay == 3)
+			{
+				sound.load(new URLRequest("lib/endscreen.mp3"));
+				channel = sound.play(0,9001,null);
+			}
 		}
 		
 		public function stop():void

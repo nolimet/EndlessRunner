@@ -30,8 +30,8 @@ package Objects
 			this.speed = $speed;
 			this.canShoot = $canShoot;
 			
-			if (sprite >= 0 && sprite < 1) { art = new SpikeArt(); }
-			if (sprite >= 1 && sprite < 2) { art = new SpikeArt2(); }
+			if (sprite >= 0 && sprite < 1) { art = new Wortel(); }
+			if (sprite >= 1 && sprite < 2) { art = new Sla(); }
 			if (sprite >= 2 && sprite < 3) { art = new SpikeArt3(); }
 			if (sprite >= 3 && sprite < 4) { art = new Enemy(); canShoot = true; fireDelay = 30; }
 			//else if (sprite >= 4 && sprite < 5) { art = new ;}

@@ -193,6 +193,7 @@ package
 				//create gameoverscreen
 				currentlevel = 2
 				startButton = new Button(60, 600, 2);
+				backmus = new SoundPlayer(3);
 				addChild(startButton);
 				//addChild(scoretext);
 				addChild(scoretext);
@@ -227,7 +228,7 @@ package
 				
 				if (1 > Math.random() * chance)
 				{
-				var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random() * 4 + 2, Math.random() * 3);
+				var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random() * 4 + 5, Math.random() * 3);
 				enemies.push(enemy);
 				addChild(enemy);
 				}
@@ -279,21 +280,23 @@ package
 				{
 					level(2);
 				}
-				
+				if (enemies.length != 0)
+				{
 				for (var j:int = enemies.length - 1 ; j >= 0; j--) 
 				{
 					enemies[j].step();
 					//enemies[j].gottenX = enemies[j].x;
 					if (enemies[j].x < -200)
-					{
-						removeChild(enemies[j])
-						enemies.splice(j, 1);
-					}
-					if (enemies[j].hitTestObject(player)) 
-					{
-						health -= 1
-						removeChild(enemies[j])
-						enemies.splice(j, 1);
+						{
+							removeChild(enemies[j])
+							enemies.splice(j, 1);
+						}
+						else if (enemies[j].hitTestObject(player)) 
+						{
+							health -= 1
+							removeChild(enemies[j])
+							enemies.splice(j, 1);
+						}
 					}
 				}
 			}
