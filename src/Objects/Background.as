@@ -13,16 +13,16 @@ package Objects
 	public class Background extends MovieClip 
 	{
 		//background classes
-		[Embed(source="../../lib/achtergrond01.gif")]
+		[Embed(source="../../lib/achtergrond01.png")]
 		private var Background1:Class;
 		
-		[Embed(source="../../lib/achtergrond02.gif")]
+		[Embed(source="../../lib/achtergrond02.png")]
 		private var Background2:Class;
 		
-		[Embed(source="../../lib/achtergrond03.gif")]
+		[Embed(source="../../lib/achtergrond03.png")]
 		private var Background3:Class;
 		
-		[Embed(source="../../lib/achtergrond04.gif")]
+		[Embed(source="../../lib/achtergrond04.png")]
 		private var Background4:Class;
 		
 		//otherthings
@@ -47,7 +47,7 @@ package Objects
 				
 				var back2:Bitmap
 				back2 = new Background4();
-				back2.x =1280
+				back2.x =1275
 				addChild(back2)
 				backgrounds.push(back2);
 				

@@ -192,7 +192,7 @@ package
 			{
 				//create gameoverscreen
 				currentlevel = 2
-				startButton = new Button(60, 600, 1);
+				startButton = new Button(60, 600, 2);
 				addChild(startButton);
 				//addChild(scoretext);
 				addChild(scoretext);
@@ -203,6 +203,7 @@ package
 		
 		private function CoinSpawner(e:TimerEvent):void
 		{
+			
 			if (coinRowLength > 0)
 			{
 				var coin:Coin = new Coin(1290, coinHeight, score);
@@ -219,10 +220,18 @@ package
 		
 		private function SpawnEnemy(e:TimerEvent):void
 		{
- 			var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random() * 4 + 2, Math.random() * 3);
-			enemies.push(enemy);
-			addChild(enemy);
-			
+			if (score > 50)
+			{
+			var chance:Number = 200 / (score/2)
+			if (chance < 5) { chance = 5 }
+				
+				if (1 > Math.random() * chance)
+				{
+				var enemy:Enemys = new Enemys(1290, Math.random() * 580 + 20, Math.random() * 4 + 2, Math.random() * 3);
+				enemies.push(enemy);
+				addChild(enemy);
+				}
+			}
 			enemyspawn.delay = Math.random() * 1500 +250;
 			
 		}

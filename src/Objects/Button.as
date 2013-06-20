@@ -18,9 +18,16 @@ package Objects
 			this.x = $x;
 			if (type == 1)
 			{
-				art = new StartArt();
+				art = new startbutton();
+				art.height = art.height * 6
+				art.width = art.width * 6
 			}
-			//if
+			if (type == 2)
+			{
+				art = new restartknop();
+				art.height = art.height * 6;
+				art.width = art.width * 6;
+			}
 			addChild(art)
 			art.addEventListener(MouseEvent.MOUSE_DOWN, MouseClick);
 		}
