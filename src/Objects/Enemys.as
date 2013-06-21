@@ -14,7 +14,7 @@ package Objects
 	public class Enemys extends MovieClip
 	{		
 		public var speed:Number = 4;
-		private var art:MovieClip;S
+		private var art:MovieClip;
 		public var colour:uint;
 		public var canShoot:Boolean;
 		private var fireDelay:int;

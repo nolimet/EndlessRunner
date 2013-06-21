@@ -63,7 +63,8 @@ package Objects
 				}
 				if (lvl == 2)
 				{
-					
+					staticArt = new StartScreen();
+					addChild(staticArt);
 				}
 			}
 		}

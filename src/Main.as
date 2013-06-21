@@ -147,6 +147,7 @@ package
 				removeChild(startButton);
 				removeChild(scoretext);
 				backmus.stop();
+				removeChild(background);
 				
 			}
 			
@@ -156,7 +157,7 @@ package
 				//create startscreen
 				addChild(scoretext);
 				backmus = new SoundPlayer(2);
-				startButton = new Button(300, 500, 1);
+				startButton = new Button(60, 600, 1);
 				background = new Background(true, 0);
 				addChild(background);
 				addChild(startButton);
@@ -187,11 +188,14 @@ package
 			{
 				//create gameoverscreen
 				currentlevel = 2
+				background = new Background(true, 2);
+				addChild(background);
+				
 				startButton = new Button(60, 600, 2);
 				backmus = new SoundPlayer(3);
 				addChild(startButton);
 				//addChild(scoretext);
-				addChild(scoretext);		
+				addChild(scoretext);
 			}
 		}
 		
