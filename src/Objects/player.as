@@ -41,7 +41,7 @@ package Objects
 			this.pos.$Y = $y;
 			
 			//places the art
-			art = new CharRun;
+			art = new CharFly;
 			addChild(art);
 			art.height = art.height / 2.8
 			art.width = art.width/2.8
